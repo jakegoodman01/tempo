@@ -12,6 +12,6 @@ class PieceType(Enum):
 
 class Piece:
     def __init__(self, piece_type: PieceType, square: str):
-        self.piece_type = piece_type
-        self.square = square
+        self.piece_type: PieceType = piece_type
+        self.square: str = square
 
