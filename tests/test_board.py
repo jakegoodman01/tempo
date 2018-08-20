@@ -4,7 +4,7 @@ from tempo import Board
 
 
 class BoardTests(TestCase):
-    def test_get_square_from_notation(self):
-        b = Board()
-        self.assertEqual(b.get_square_from_notation('a3'), 'a3')
-        self.assertEqual(b.get_square_from_notation('c6'), 'c6')
+    def test_validate_square(self):
+        self.assertEqual(Board.validate_square('a3'), True)
+        self.assertEqual(Board.validate_square('13'), False)
+        self.assertEqual(Board.validate_square('h9'), False)
