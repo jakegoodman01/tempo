@@ -1,6 +1,6 @@
 from tempo import Board
 
-from typing import Set
+from typing import List
 
 
 class MoveTreeNode:
@@ -9,6 +9,9 @@ class MoveTreeNode:
     def __init__(self, current_square: str):
         self._current_square: str = current_square
         self._next: str = None
+
+    def __repr__(self):
+        return self._current_square
 
     def __eq__(self, other):
         return isinstance(other, MoveTreeNode) and self._current_square == other._current_square
@@ -24,7 +27,7 @@ class MoveTreeNode:
     @next.setter
     def next(self, value: str):
         if Board.validate_square(value):
-            self._next = value
+            self._next = MoveTreeNode(value)
         else:
             raise ValueError('Invalid square')
 
@@ -35,11 +38,11 @@ class MoveTreeHead(MoveTreeNode):
 
     def __init__(self, current_square: str):
         super().__init__(current_square)
-        self._next: Set[str] = set()
+        self._next: List[str] = list()
 
     def add_child(self, new_square: str):
-        """This method adds new_square to self._next"""
-        self._next.add(new_square)
+        """This method appends new_square to self._next"""
+        self._next.append(new_square)
 
 
 class MoveTree:
@@ -64,4 +67,4 @@ class MoveTree:
     def next_square_from_head(self, index):
         if self.token_node != self.head:
             raise RuntimeError('token_node must be the head of this MoveTree to use next_square_from_head')
-        self.token_node = self.token_node.next[index]
+        self.token_node = MoveTreeNode(self.token_node.next[index])
