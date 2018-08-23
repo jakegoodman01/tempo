@@ -1,6 +1,6 @@
 from tempo import Board
 
-from typing import List
+from typing import Set
 
 
 class MoveTreeNode:
@@ -35,12 +35,11 @@ class MoveTreeHead(MoveTreeNode):
 
     def __init__(self, current_square: str):
         super().__init__(current_square)
-        del super()._next
-        self._next: List[str] = []
+        self._next: Set[str] = set()
 
-    @property
-    def next(self):
-        return self._next
+    def add_child(self, new_square: str):
+        """This method adds new_square to self._next"""
+        self._next.add(new_square)
 
 
 class MoveTree:
