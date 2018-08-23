@@ -19,3 +19,13 @@ class MoveTreeNodeTests(TestCase):
         n = movetree.MoveTreeNode('b8')
         n.next = 'a7'
         self.assertEqual(n.next, 'a7')
+
+
+class MoveTreeHeadTests(TestCase):
+    def test_next_getter(self):
+        h = movetree.MoveTreeHead('c4')
+        self.assertEqual(h.next, set())
+
+        h.add_child('b3')
+        h.add_child('d3')
+        self.assertEqual(h.next, {'b3', 'd3'})
